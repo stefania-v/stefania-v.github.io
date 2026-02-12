@@ -26,9 +26,152 @@
     <section class="hero">
       <h1>I build practical AI workflows that fit real systems.</h1>
       <p class="lead">
-        I translate business needs into end-to-end solutions and apply LLMs with guardrails.
+        I translate business needs into end-to-end solutions (APIs, integrations, data flows) and
+        apply LLMs with guardrails: structured outputs, validation, human-in-the-loop review.
       </p>
+
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" href="assets/StefaniaV-CV.pdf" target="_blank" rel="noopener">Download CV</a>
+      </div>
+
+      <div class="chips">
+        <span>LLMs & Prompting</span>
+        <span>Structured JSON outputs</span>
+        <span>Evaluation & quality</span>
+        <span>APIs & integrations</span>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="section-head">
+        <h2>Projects</h2>
+        <p>Short, demo-first projects that show AI applied to delivery and systems.</p>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-top">
+            <h3>AI Delivery Assistant</h3>
+            <p class="meta">Meeting transcript → Epics/User Stories + Gherkin AC</p>
+          </div>
+          <p class="desc">
+            Generates structured tickets with evidence snippets, validation rules, and a review step
+            to reduce hallucinations.
+          </p>
+          <div class="tags">
+            <span>LLM</span><span>JSON Schema</span><span>Streamlit</span><span>QA guardrails</span>
+          </div>
+          <div class="links">
+            <a href="https://YOUR_DEMO_LINK" target="_blank" rel="noopener">Live demo</a>
+            <a href="https://github.com/YOUR_GITHUB/REPO1" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://YOUR_VIDEO_LINK" target="_blank" rel="noopener">Video</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <h3>Document Field Extractor</h3>
+            <p class="meta">Unstructured text → structured fields (CSV/JSON)</p>
+          </div>
+          <p class="desc">
+            Extracts key fields with confidence + missing-data checks. Designed for business docs
+            (emails, forms, PDFs as text).
+          </p>
+          <div class="tags">
+            <span>LLM</span><span>Extraction</span><span>Validation</span><span>Export</span>
+          </div>
+          <div class="links">
+            <a href="https://YOUR_DEMO_LINK_2" target="_blank" rel="noopener">Live demo</a>
+            <a href="https://github.com/YOUR_GITHUB/REPO2" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-top">
+            <h3>Knowledge Assistant</h3>
+            <p class="meta">Ask questions over docs with citations</p>
+          </div>
+          <p class="desc">
+            Retrieves relevant passages and answers with sources. Falls back to “not found” if evidence
+            is missing.
+          </p>
+          <div class="tags">
+            <span>RAG</span><span>Evaluation</span><span>Safety</span><span>UX</span>
+          </div>
+          <div class="links">
+            <a href="https://YOUR_DEMO_LINK_3" target="_blank" rel="noopener">Live demo</a>
+            <a href="https://github.com/YOUR_GITHUB/REPO3" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-head">
+        <h2>About</h2>
+      </div>
+      <div class="two-col">
+        <p>
+          I work on integration-heavy products and complex flows (APIs, EDI-like interfaces, orchestration, data validation),
+          and I’m evolving into AI-enabled delivery: turning messy inputs into structured decisions and actionable outputs.
+        </p>
+        <p>
+          I focus on practicality: clear requirements, measurable quality, and guardrails that make LLM features usable in real workflows.
+        </p>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="section-head">
+        <h2>Skills</h2>
+      </div>
+      <div class="grid skills">
+        <div class="card small">
+          <h3>AI</h3>
+          <ul>
+            <li>LLM prompting & structured outputs</li>
+            <li>Guardrails, validation, human review</li>
+            <li>Evaluation basics (quality checks)</li>
+          </ul>
+        </div>
+        <div class="card small">
+          <h3>Systems</h3>
+          <ul>
+            <li>APIs, integration flows, data contracts</li>
+            <li>Requirements & acceptance criteria</li>
+            <li>Process design & documentation</li>
+          </ul>
+        </div>
+        <div class="card small">
+          <h3>Tools</h3>
+          <ul>
+            <li>Python (portfolio projects)</li>
+            <li>Streamlit / simple web demos</li>
+            <li>GitHub, docs, versioning</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <div class="section-head">
+        <h2>Contact</h2>
+        <p>Best way to reach me:</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/YOUR_GITHUB" target="_blank" rel="noopener">GitHub</a>
+        <a href="mailto:YOUR_EMAIL">Email</a>
+      </div>
+      <footer class="footer">
+        <span>© <span id="year"></span> Stefania V</span>
+      </footer>
     </section>
   </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
