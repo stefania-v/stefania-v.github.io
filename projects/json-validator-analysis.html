@@ -54,37 +54,25 @@
       <h2>Stakeholders & Users</h2>
     
       <p>
-        The validation process involves multiple actors across technical and operational domains.
-        Understanding their different perspectives is essential to frame the business need correctly.
+        The validation process impacts different actors across technical and operational domains:
       </p>
     
-      <h3>1. Integration Partners</h3>
-      <p>
-        External systems interacting with company APIs. They submit structured payloads based on agreed contracts.
-        When validation fails, they receive technical feedback that may not always clearly indicate how to correct the request.
-      </p>
+      <ul>
+        <li><strong>Integration Partners:</strong> External systems calling company APIs. 
+        When validation fails, they receive technical error messages that may not clearly indicate how to correct the request.</li>
     
-      <h3>2. Operational End Users</h3>
-      <p>
-        Users entering data in front-end applications (e.g., booking, customer or shipment details).
-        The API payload often reflects data previously entered through a UI.
-        When validation errors occur, these users may receive reports or notifications
-        containing highly technical messages that are difficult to interpret.
-      </p>
+        <li><strong>Operational End Users:</strong> Users entering data through front-end applications 
+        (e.g., booking or customer details). API payloads often reflect data previously entered in a UI. 
+        Technical validation errors returned via reports or emails can be difficult to interpret and act upon.</li>
     
-      <h3>3. QA & Support Teams</h3>
-      <p>
-        Responsible for investigating validation failures and supporting issue resolution.
-        They often act as intermediaries between technical validation logic and business users.
-        Poorly interpretable errors increase investigation time and ticket volume.
-      </p>
+        <li><strong>QA & Support Teams:</strong> Responsible for investigating validation failures and assisting in issue resolution. 
+        Poorly interpretable errors increase analysis time and ticket volume.</li>
     
-      <h3>4. Delivery & Product Stakeholders</h3>
-      <p>
-        Accountable for integration reliability, partner satisfaction, and operational efficiency.
-        Validation clarity directly impacts turnaround time and cross-team collaboration.
-      </p>
+        <li><strong>Delivery & Product Stakeholders:</strong> Accountable for integration reliability and partner satisfaction. 
+        Clear validation feedback directly impacts turnaround time and cross-team efficiency.</li>
+      </ul>
     </section>
+
 
   </main>
 </body>
