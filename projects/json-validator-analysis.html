@@ -29,7 +29,7 @@
     </section>
 
     <section class="section">
-      <h2>Context & Objective</h2>
+      <h2>Context & Business Need</h2>
     
       <p>
         In integration-heavy environments, multiple external partners interact with the company through APIs.
@@ -51,83 +51,39 @@
     </section>
 
     <section class="section">
-      <h2>Scope</h2>
-      <ul>
-        <li>JSON Schema (Draft 2020-12) validation</li>
-        <li>Strict / lenient validation mode</li>
-        <li>Normalized issue reporting</li>
-        <li>Optional AI explanation layer (BYOK)</li>
-        <li>Structured AI output enforced via schema guardrails</li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <h2>Primary Users</h2>
-      <ul>
-        <li>Business Analysts reviewing integration payloads</li>
-        <li>QA teams validating API contracts</li>
-        <li>Developers troubleshooting schema mismatches</li>
-        <li>Integration partners requiring clearer error feedback</li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <h2>Functional Flow</h2>
-      <ol>
-        <li>User provides JSON Schema and payload</li>
-        <li>Validator detects structural mismatches</li>
-        <li>Issues are normalized into structured objects</li>
-        <li>Optional AI layer transforms issues into business-readable explanations</li>
-        <li>AI output is validated against a strict output schema</li>
-      </ol>
-    </section>
-
-    <section class="section">
-      <h2>Architecture Overview</h2>
+      <h2>Stakeholders & Users</h2>
+    
       <p>
-        The architecture combines deterministic validation logic with an AI layer constrained by strict guardrails.
+        The validation process involves multiple actors across technical and operational domains.
+        Understanding their different perspectives is essential to frame the business need correctly.
       </p>
-
-      <p><strong>Main components:</strong></p>
-      <ul>
-        <li>JSON Schema validator (Draft202012Validator)</li>
-        <li>Issue normalization layer</li>
-        <li>AI explanation layer (OpenAI API – BYOK)</li>
-        <li>AI output schema validation</li>
-        <li>Streamlit-based interactive UI</li>
-      </ul>
-
+    
+      <h3>1. Integration Partners</h3>
       <p>
-        The AI layer does not replace validation logic; it augments it by improving interpretability.
+        External systems interacting with company APIs. They submit structured payloads based on agreed contracts.
+        When validation fails, they receive technical feedback that may not always clearly indicate how to correct the request.
       </p>
-    </section>
-
-    <section class="section">
-      <h2>AI Design Considerations</h2>
-      <ul>
-        <li>Structured JSON output only</li>
-        <li>No additional properties allowed</li>
-        <li>Validation of AI output before display</li>
-        <li>Bring Your Own Key (BYOK) to avoid embedded secrets</li>
-      </ul>
-
+    
+      <h3>2. Operational End Users</h3>
       <p>
-        This ensures that AI responses remain reliable and usable within system workflows.
+        Users entering data in front-end applications (e.g., booking, customer or shipment details).
+        The API payload often reflects data previously entered through a UI.
+        When validation errors occur, these users may receive reports or notifications
+        containing highly technical messages that are difficult to interpret.
       </p>
-    </section>
-
-    <section class="section">
-      <h2>Business Value</h2>
-      <ul>
-        <li>Improves clarity in integration validation processes</li>
-        <li>Reduces friction between technical and non-technical stakeholders</li>
-        <li>Supports earlier defect detection</li>
-        <li>Enhances collaboration in delivery contexts</li>
-      </ul>
-    </section>
-
-    <section class="section">
-      <a class="btn primary" href="../index.html">← Back to Portfolio</a>
+    
+      <h3>3. QA & Support Teams</h3>
+      <p>
+        Responsible for investigating validation failures and supporting issue resolution.
+        They often act as intermediaries between technical validation logic and business users.
+        Poorly interpretable errors increase investigation time and ticket volume.
+      </p>
+    
+      <h3>4. Delivery & Product Stakeholders</h3>
+      <p>
+        Accountable for integration reliability, partner satisfaction, and operational efficiency.
+        Validation clarity directly impacts turnaround time and cross-team collaboration.
+      </p>
     </section>
 
   </main>
