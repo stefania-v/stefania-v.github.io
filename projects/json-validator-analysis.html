@@ -30,13 +30,23 @@
 
     <section class="section">
       <h2>Context & Objective</h2>
+    
       <p>
-        This project was designed as a Proof of Concept to explore how deterministic contract validation
-        (JSON Schema) can be enhanced with structured AI explanations.
+        In integration-heavy environments, multiple external partners interact with the company through APIs.
+        Many of the values sent in API requests originate from operational user interfaces and are entered by end users
+        during day-to-day work (e.g., booking details, customer data, shipping instructions, customs declaration, ...).
       </p>
+    
       <p>
-        The objective is to bridge technical schema validation errors and actionable insights,
-        making integration issues understandable beyond highly technical audiences.
+        After submitting a request, users typically receive a report (for example via email) confirming whether the call
+        succeeded and listing any validation errors. In many real workflows, those errors are expressed in highly technical
+        terms (schema/contract language), which makes them hard to interpret and slows down correction cycles.
+      </p>
+    
+      <p>
+        This Proof of Concept aims to demonstrate that by integrating an LLM into the validation process,
+        technical contract errors can be translated into user-friendly messages and concrete suggestions on how to fix the input,
+        reducing friction for end users and improving the overall turnaround time for integrations.
       </p>
     </section>
 
