@@ -73,6 +73,31 @@
       </ul>
     </section>
 
+    <section class="section">
+      <h2>High-Level Flow</h2>
+    
+      <p>
+        The POC fits into a standard API validation workflow. The deterministic validation remains the source of truth
+        (JSON Schema). The AI layer is used only to translate technical issues into user-friendly, actionable messages.
+      </p>
+    
+      <ol>
+        <li><strong>API request submitted</strong> by a partner system (values often originate from a user-facing UI).</li>
+        <li><strong>Deterministic validation</strong> checks the payload against the JSON Schema contract.</li>
+        <li><strong>Structured validation report</strong> is produced (technical issues, invalid values, expected constraints).</li>
+        <li><strong>AI layer</strong> converts issues into structured explanations and fix suggestions (BYOK).</li>
+        <li><strong>User-facing report</strong> is generated (e.g., email/notification) using the structured output.</li>
+      </ol>
+    
+      <p class="meta">
+        Note: the AI does not replace validation logic. It improves interpretability and reduces turnaround time for corrections.
+      </p>
+    
+      <!-- Diagram placeholder (add image or SVG later) -->
+      <div class="card" style="margin-top:12px;">
+        <p class="meta" style="margin:0;">Diagram placeholder: validation flow with optional AI explanation layer.</p>
+      </div>
+    </section>
 
   </main>
 </body>
