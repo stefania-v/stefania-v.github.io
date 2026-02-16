@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI-Enabled API Contract Quality Gate — Analysis</title>
+  <meta name="description" content="Functional analysis and architecture of the AI-Enabled API Contract Quality Gate project." />
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
+<body>
+  <header class="wrap header">
+    <div class="brand">
+      <div class="name">Stefania Vanzetti</div>
+      <div class="role">AI-enabled Business Systems Analyst</div>
+    </div>
+
+    <nav class="nav">
+      <a href="../index.html">Home</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    
+    <section class="section">
+      <h1>AI-Enabled API Contract Quality Gate</h1>
+      <p class="lead">
+        Functional analysis, architectural rationale, and AI integration design for the Integration Contract Validator proof of concept.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Context & Objective</h2>
+      <p>
+        This project was designed as a Proof of Concept to explore how deterministic contract validation
+        (JSON Schema) can be enhanced with structured AI explanations.
+      </p>
+      <p>
+        The objective is to bridge technical schema validation errors and actionable insights,
+        making integration issues understandable beyond highly technical audiences.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Scope</h2>
+      <ul>
+        <li>JSON Schema (Draft 2020-12) validation</li>
+        <li>Strict / lenient validation mode</li>
+        <li>Normalized issue reporting</li>
+        <li>Optional AI explanation layer (BYOK)</li>
+        <li>Structured AI output enforced via schema guardrails</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Primary Users</h2>
+      <ul>
+        <li>Business Analysts reviewing integration payloads</li>
+        <li>QA teams validating API contracts</li>
+        <li>Developers troubleshooting schema mismatches</li>
+        <li>Integration partners requiring clearer error feedback</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>Functional Flow</h2>
+      <ol>
+        <li>User provides JSON Schema and payload</li>
+        <li>Validator detects structural mismatches</li>
+        <li>Issues are normalized into structured objects</li>
+        <li>Optional AI layer transforms issues into business-readable explanations</li>
+        <li>AI output is validated against a strict output schema</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2>Architecture Overview</h2>
+      <p>
+        The architecture combines deterministic validation logic with an AI layer constrained by strict guardrails.
+      </p>
+
+      <p><strong>Main components:</strong></p>
+      <ul>
+        <li>JSON Schema validator (Draft202012Validator)</li>
+        <li>Issue normalization layer</li>
+        <li>AI explanation layer (OpenAI API – BYOK)</li>
+        <li>AI output schema validation</li>
+        <li>Streamlit-based interactive UI</li>
+      </ul>
+
+      <p>
+        The AI layer does not replace validation logic; it augments it by improving interpretability.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>AI Design Considerations</h2>
+      <ul>
+        <li>Structured JSON output only</li>
+        <li>No additional properties allowed</li>
+        <li>Validation of AI output before display</li>
+        <li>Bring Your Own Key (BYOK) to avoid embedded secrets</li>
+      </ul>
+
+      <p>
+        This ensures that AI responses remain reliable and usable within system workflows.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>Business Value</h2>
+      <ul>
+        <li>Improves clarity in integration validation processes</li>
+        <li>Reduces friction between technical and non-technical stakeholders</li>
+        <li>Supports earlier defect detection</li>
+        <li>Enhances collaboration in delivery contexts</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <a class="btn primary" href="../index.html">← Back to Portfolio</a>
+    </section>
+
+  </main>
+</body>
+</html>
