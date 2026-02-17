@@ -550,11 +550,135 @@
       When the AI Assist step is executed
       Then the API key is not displayed in the UI
       And the API key is not included in any exported output
+        </pre>
+    
+      </div>
+    </details>
+
+    <!-- PBI 04 -->
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer; font-weight:600; font-size:16px;">
+        PBI-04 — AI Output Guardrails & Safe Handling
+      </summary>
+    
+      <div class="card" style="
+          margin-top:12px;
+          padding:18px;
+          border:1px solid #1e2a44;
+          border-radius:14px;
+          background:rgba(18, 28, 46, 0.55);
+      ">
+    
+        <p style="margin-top:0;">
+          <strong>User Story</strong><br>
+          As a delivery team member,<br>
+          I want the AI-generated output to be validated against a predefined contract,<br>
+          So that AI responses remain structured, predictable, and safe to consume in downstream processes.
+        </p>
+    
+        <p style="margin-bottom:12px;">
+          <strong>Description</strong><br>
+          The AI output must be validated against a predefined <code>AI_OUTPUT_SCHEMA</code>
+          before being displayed or used by any downstream reporting mechanism.
+          <br><br>
+          The schema must:
+          <ul style="margin-top:6px;">
+            <li>Define required top-level keys (<code>summary</code>, <code>top_issues</code>)</li>
+            <li>Disallow additionalProperties</li>
+            <li>Enforce required fields within each <code>top_issues</code> item</li>
+            <li>Restrict severity values to predefined enums (<code>low</code>, <code>medium</code>, <code>high</code>)</li>
+          </ul>
+          <br>
+          If the AI response does not comply with the schema:
+          <ul style="margin-top:6px;">
+            <li>The system must not display partial or malformed AI output</li>
+            <li>An error message must be shown indicating AI Assist failure</li>
+            <li>The deterministic validation report must remain available as fallback</li>
+          </ul>
+          <br>
+          This guardrail ensures that deterministic validation remains the source of truth,
+          and that AI augmentation cannot introduce structural inconsistencies or unreliable content.
+        </p>
+    
+        <p style="margin-top:0; margin-bottom:8px;">
+          <strong>Example (Invalid AI Output Blocked by Guardrails)</strong>
+        </p>
+    
+        <pre style="
+            margin:0 0 12px 0;
+            padding:14px;
+            border-radius:12px;
+            background:rgba(10,16,28,0.9);
+            border:1px solid #1e2a44;
+            overflow:auto;
+            white-space:pre;
+        ">Invalid AI response (missing required fields)
+    
+    {
+      "summary": "Some issues detected.",
+      "issues": [
+        {
+          "field": "bookingId",
+          "message": "Wrong type"
+        }
+      ]
+    }</pre>
+    
+        <pre style="
+            margin:0;
+            padding:14px;
+            border-radius:12px;
+            background:rgba(10,16,28,0.9);
+            border:1px solid #1e2a44;
+            overflow:auto;
+            white-space:pre;
+        ">Expected system behavior:
+    - AI response fails schema validation
+    - No AI explanation is displayed
+    - Deterministic validation report remains visible
+    - An error message indicates AI Assist failure</pre>
+    
+        <p style="margin-top:16px; margin-bottom:8px;">
+          <strong>Acceptance Criteria</strong>
+        </p>
+    
+        <pre style="
+            margin:0;
+            padding:14px;
+            border-radius:12px;
+            background:rgba(10,16,28,0.9);
+            border:1px solid #1e2a44;
+            overflow:auto;
+            white-space:pre;
+        ">Feature: AI Output Guardrails
+    
+    Scenario: AI output complies with schema
+      Given AI Assist is enabled
+      And the AI returns a JSON response
+      And the response complies with AI_OUTPUT_SCHEMA
+      When the system validates the AI output
+      Then the AI explanation is displayed to the user
+    
+    Scenario: AI output violates schema
+      Given AI Assist is enabled
+      And the AI returns a JSON response
+      And the response does not comply with AI_OUTPUT_SCHEMA
+      When the system validates the AI output
+      Then the AI explanation is not displayed
+      And an AI Assist failure message is shown
+      And the deterministic validation report remains visible
+    
+    Scenario: Deterministic validation remains source of truth
+      Given AI Assist is enabled
+      When validation is executed
+      Then deterministic validation is executed before AI Assist
+      And AI Assist does not override deterministic results
     </pre>
     
       </div>
     </details>
 
+      
     </section>
   </main>
 </body>
