@@ -421,6 +421,140 @@
       
         </div>
       </details>
+
+    <!-- PBI 03 -->
+    <details style="margin-top:16px;">
+      <summary style="cursor:pointer; font-weight:600; font-size:16px;">
+        PBI-03 — AI Assist (BYOK) for User-friendly Explanations & Fix Suggestions
+      </summary>
+    
+      <div class="card" style="
+          margin-top:12px;
+          padding:18px;
+          border:1px solid #1e2a44;
+          border-radius:14px;
+          background:rgba(18, 28, 46, 0.55);
+      ">
+    
+        <p style="margin-top:0;">
+          <strong>User Story</strong><br>
+          As an operational end user receiving validation feedback,<br>
+          I want technical contract validation errors to be translated into clear explanations and concrete fix suggestions,<br>
+          So that I can correct the submitted data without requiring deep knowledge of JSON Schema or API contracts.
+        </p>
+    
+        <p style="margin-bottom:12px;">
+          <strong>Description</strong><br>
+          The system must provide an optional <em>AI Assist</em> mode that generates user-friendly explanations
+          and actionable fix suggestions starting from the deterministic validation report.
+          <br><br>
+          <strong>BYOK (Bring Your Own Key):</strong><br>
+          AI Assist must require a user-provided OpenAI API key.
+          The system must not store or expose any server-side API key.
+          If no key is provided, AI Assist must not execute.
+          <br><br>
+          <strong>AI Input:</strong><br>
+          The normalized validation issues produced by the deterministic validation engine
+          (including target path, validator type, expected constraint and invalid value when available).
+          <br><br>
+          <strong>AI Output:</strong><br>
+          The AI must return structured JSON containing:
+          <ul style="margin-top:6px;">
+            <li><code>summary</code> (short explanation of overall issues)</li>
+            <li><code>top_issues</code> (array of structured issue explanations)</li>
+          </ul>
+          Each item in <code>top_issues</code> must include:
+          <ul style="margin-top:6px;">
+            <li><code>target</code> (payload pointer, e.g. <code>payload:/containers/0/weightKg</code>)</li>
+            <li><code>severity</code> (<code>low</code> | <code>medium</code> | <code>high</code>)</li>
+            <li><code>explanation</code> (user-friendly description of the issue)</li>
+            <li><code>suggestion</code> (clear corrective action)</li>
+          </ul>
+          The AI output is intended to be consumed by user-facing reporting mechanisms
+          (e.g., email notifications or UI feedback panels).
+        </p>
+    
+        <p style="margin-top:0; margin-bottom:8px;">
+          <strong>Example (AI Output)</strong>
+        </p>
+    
+        <pre style="
+            margin:0;
+            padding:14px;
+            border-radius:12px;
+            background:rgba(10,16,28,0.9);
+            border:1px solid #1e2a44;
+            overflow:auto;
+            white-space:pre;
+        ">{
+      "summary": "Multiple validation errors were detected in the payload.",
+      "top_issues": [
+        {
+          "target": "payload:/containers/0/weightKg",
+          "severity": "high",
+          "explanation": "The field containers[0].weightKg must be >= 0 (minimum 0), but -5 was provided.",
+          "suggestion": "Set weightKg to a non-negative value (e.g. 0 or greater)."
+        },
+        {
+          "target": "payload:/bookingId",
+          "severity": "medium",
+          "explanation": "The field bookingId must be a string, but 12345 was provided as a number.",
+          "suggestion": "Convert bookingId to a string value, e.g. \"12345\"."
+        }
+      ]
+    }</pre>
+    
+        <p style="margin-top:16px; margin-bottom:8px;">
+          <strong>Acceptance Criteria</strong>
+        </p>
+    
+        <pre style="
+            margin:0;
+            padding:14px;
+            border-radius:12px;
+            background:rgba(10,16,28,0.9);
+            border:1px solid #1e2a44;
+            overflow:auto;
+            white-space:pre;
+        ">Feature: AI Assist (BYOK)
+    
+    Scenario: AI Assist is disabled by default
+      Given the application is opened
+      Then AI Assist is disabled
+    
+    Scenario: AI Assist requires a user-provided API key
+      Given AI Assist is enabled
+      And no API key is provided
+      When the user executes validation
+      Then AI Assist does not run
+      And the deterministic validation report remains visible
+    
+    Scenario: AI Assist generates structured explanations
+      Given AI Assist is enabled
+      And a valid API key is provided
+      And the deterministic validation report contains at least one issue
+      When the AI Assist step is executed
+      Then a structured JSON response is returned
+      And the response contains "summary" and "top_issues"
+    
+    Scenario: AI explanation includes actionable correction
+      Given AI Assist is enabled
+      And a validation issue includes an invalid_value
+      When the AI Assist step is executed
+      Then the explanation references the invalid value when available
+      And a concrete correction suggestion is provided
+    
+    Scenario: The API key is not exposed
+      Given AI Assist is enabled
+      And a user-provided API key is entered
+      When the AI Assist step is executed
+      Then the API key is not displayed in the UI
+      And the API key is not included in any exported output
+    </pre>
+    
+      </div>
+    </details>
+
     </section>
   </main>
 </body>
