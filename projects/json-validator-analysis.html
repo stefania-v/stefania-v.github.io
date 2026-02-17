@@ -274,24 +274,25 @@
               overflow:auto;
               white-space:pre;
           ">Feature: Deterministic contract validation
-      
+
             Scenario: Payload matches schema
               Given a valid JSON Schema
               And a compliant JSON payload
               When validation is executed
-              Then the result status is PASS
-              And no validation issues are returned
+              Then the field "pass" is true
+              And the field "issue_count" is 0
+              And the "issues" array is empty
           
             Scenario: Payload violates schema
               Given a valid JSON Schema
               And a non-compliant JSON payload
               When validation is executed
-              Then the result status is FAIL
-              And at least one structured validation issue is returned
+              Then the field "pass" is false
+              And the field "issue_count" is greater than 0
               And each issue includes message, target, validator, expected and invalid_value when available
           
             Scenario: Validation output is exportable
-              Given a validation result (PASS or FAIL)
+              Given a validation result
               When the user requests export
               Then a structured JSON report is generated
           </pre>
