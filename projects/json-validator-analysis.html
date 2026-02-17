@@ -113,6 +113,83 @@
       </div>
     </section>
 
+    <section class="section">
+      <h2>Backlog structure</h2>
+      <p>
+        To demonstrate how this Proof of Concept would be structured in a real delivery context, below is an example of backlog decomposition into 
+        Feature and Product Backlog Items (PBIs).
+        The objective is to show how business needs are translated into implementable work packages with clear acceptance criteria.
+      </p>
+
+      <!-- FEATURE CARD -->
+      <div class="card" style="
+        margin-top: 16px;
+        padding: 18px 18px;
+        border: 1px solid #1e2a44;
+        border-radius: 14px;
+        background: rgba(18, 28, 46, 0.65);
+      ">
+      
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <h3 style="margin:0;">FEATURE — User-friendly validation feedback for integration payloads</h3>
+          <span class="meta" style="margin:0;">Example backlog item</span>
+        </div>
+      
+        <p style="margin-top:12px; margin-bottom:12px;">
+          <strong>Feature goal</strong><br>
+          In integration-heavy environments, multiple external partners interact with company APIs.
+          Many of the values sent in API requests originate from operational user interfaces and are entered
+          by end users during day-to-day activities (e.g., booking details, customer data, shipping instructions, customs declarations).
+          <br><br>
+          This feature aims to enhance the existing deterministic contract validation process by integrating
+          an AI explanation layer capable of translating technical schema errors into structured,
+          user-friendly messages and concrete correction suggestions.
+        </p>
+        
+        <p style="margin-top:0; margin-bottom:12px;">
+          <strong>Business value</strong><br>
+          After submitting an API request, users typically receive a report (e.g., via email)
+          confirming whether the call succeeded and listing any validation errors.
+          In many real workflows, those errors are expressed in technical contract language,
+          making them difficult to interpret and slowing down correction cycles.
+          <br><br>
+          By augmenting the validation process with structured AI explanations,
+          this feature reduces friction between technical and operational teams,
+          improves turnaround time for corrections,
+          and increases overall integration reliability without replacing deterministic validation logic.
+        </p>
+      
+        <p style="margin-top:0; margin-bottom:8px;"><strong>High-level Acceptance Criteria</strong></p>
+      
+        <pre style="
+          margin: 0;
+          padding: 14px;
+          border-radius: 12px;
+          background: rgba(10, 16, 28, 0.85);
+          border: 1px solid #1e2a44;
+          overflow:auto;
+          white-space: pre;
+        ">Feature: User-friendly validation feedback
+      
+        Scenario: Payload is validated and reported
+          Given a JSON payload is submitted to an API
+          When the payload is validated against the contract
+          Then a structured validation report is produced
+      
+        Scenario: AI mode is enabled
+          Given validation issues exist
+          And AI assist is enabled
+          When the AI layer processes the report
+          Then user-friendly explanations and fix suggestions are generated
+      
+        Scenario: AI mode is disabled
+          Given validation issues exist
+          And AI assist is disabled
+          Then the deterministic technical report is still available
+        </pre>
+      
+      </div>
+    </section>
   </main>
 </body>
 </html>
