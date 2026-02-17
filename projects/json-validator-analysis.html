@@ -187,8 +187,117 @@
           And AI assist is disabled
           Then the deterministic technical report is still available
         </pre>
-      
       </div>
+
+      <!-- PBI 01 -->
+      <details style="margin-top:16px;">
+        <summary style="cursor:pointer; font-weight:600; font-size:16px;">
+          PBI-01 — Deterministic JSON Schema Contract Validation
+        </summary>
+      
+        <div class="card" style="
+            margin-top:12px;
+            padding:18px;
+            border:1px solid #1e2a44;
+            border-radius:14px;
+            background:rgba(18, 28, 46, 0.55);
+        ">
+      
+          <p style="margin-top:0;">
+            <strong>User Story</strong><br>
+            As a delivery team member (BA, QA or developer),<br>
+            I want incoming API payloads to be validated against an agreed JSON Schema contract,<br>
+            So that contract violations are detected deterministically and consistently before reaching downstream systems.
+          </p>
+      
+          <p>
+            <strong>Description</strong><br>
+            The system must validate JSON payloads using Draft 2020-12 JSON Schema specifications.
+            Validation must be deterministic and act as the single source of truth.
+            <br><br>
+            When validation fails, the system must generate a normalized structured report including:
+            <ul style="margin-top:6px;">
+              <li>Technical error message</li>
+              <li>Target path within the payload</li>
+              <li>Validator type (e.g. type, minimum, enum, additionalProperties)</li>
+              <li>Expected constraint</li>
+              <li>Invalid value found in the payload (when available)</li>
+            </ul>
+            The output must be usable both for direct display and as structured input for the optional AI explanation layer.
+          </p>
+
+          <p style="margin-top:16px; margin-bottom:8px;">
+            <strong>Example Output (Deterministic Validation Report)</strong>
+          </p>
+          
+          <pre style="
+              margin:0;
+              padding:14px;
+              border-radius:12px;
+              background:rgba(10,16,28,0.9);
+              border:1px solid #1e2a44;
+              overflow:auto;
+              white-space:pre;
+          ">
+          {
+            "pass": false,
+            "issue_count": 2,
+            "issues": [
+              {
+                "message": "12345 is not of type 'string'",
+                "target": "payload:/bookingId",
+                "validator": "type",
+                "expected": "string",
+                "invalid_value": 12345
+              },
+              {
+                "message": "-5 is less than the minimum of 0",
+                "target": "payload:/containers/0/weightKg",
+                "validator": "minimum",
+                "expected": 0,
+                "invalid_value": -5
+              }
+            ]
+          }
+          </pre>
+          
+          <p style="margin-bottom:8px;">
+            <strong>Acceptance Criteria</strong>
+          </p>
+      
+          <pre style="
+              margin:0;
+              padding:14px;
+              border-radius:12px;
+              background:rgba(10,16,28,0.9);
+              border:1px solid #1e2a44;
+              overflow:auto;
+              white-space:pre;
+          ">Feature: Deterministic contract validation
+      
+            Scenario: Payload matches schema
+              Given a valid JSON Schema
+              And a compliant JSON payload
+              When validation is executed
+              Then the result status is PASS
+              And no validation issues are returned
+          
+            Scenario: Payload violates schema
+              Given a valid JSON Schema
+              And a non-compliant JSON payload
+              When validation is executed
+              Then the result status is FAIL
+              And at least one structured validation issue is returned
+              And each issue includes message, target, validator, expected and invalid_value when available
+          
+            Scenario: Validation output is exportable
+              Given a validation result (PASS or FAIL)
+              When the user requests export
+              Then a structured JSON report is generated
+          </pre>
+      
+        </div>
+      </details>
     </section>
   </main>
 </body>
