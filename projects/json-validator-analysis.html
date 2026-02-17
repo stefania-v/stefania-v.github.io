@@ -299,6 +299,128 @@
       
         </div>
       </details>
+
+
+      <!-- PBI 02 -->
+      <details style="margin-top:16px;">
+        <summary style="cursor:pointer; font-weight:600; font-size:16px;">
+          PBI-02 — Strict Mode Handling (Fail on Additional Properties)
+        </summary>
+      
+        <div class="card" style="
+            margin-top:12px;
+            padding:18px;
+            border:1px solid #1e2a44;
+            border-radius:14px;
+            background:rgba(18, 28, 46, 0.55);
+        ">
+      
+          <p style="margin-top:0;">
+            <strong>User Story</strong><br>
+            As a QA or integration team member,<br>
+            I want to enable a strict validation mode that fails when unexpected fields are present in the payload,<br>
+            So that API contract enforcement is consistent and prevents unapproved data from being accepted.
+          </p>
+      
+          <p style="margin-bottom:10px;">
+            <strong>Description</strong><br>
+            The validator must support a <em>Strict mode</em> toggle.
+            When Strict mode is enabled, the system must enforce <code>additionalProperties: false</code> at the root object
+            (unless the schema already explicitly defines <code>additionalProperties</code>).
+            When Strict mode is disabled, the schema must be used as provided (no implicit enforcement).
+            <br><br>
+            This capability is intended to reflect real-world integration constraints where payloads may include accidental
+            extra fields originating from UI inputs, mapping layers, or partner implementations.
+          </p>
+      
+          <p style="margin-top:0; margin-bottom:8px;">
+            <strong>Example (Strict mode OFF vs ON)</strong>
+          </p>
+      
+          <p style="margin-top:0; margin-bottom:8px;">
+            The following payload includes an unexpected field (<code>unexpectedField</code>).<br>
+            With <strong>Strict mode OFF</strong> and a schema that does not explicitly restrict additional properties,
+            the payload may pass validation.<br>
+            With <strong>Strict mode ON</strong>, the same payload must fail.
+          </p>
+      
+          <pre style="
+              margin:0 0 12px 0;
+              padding:14px;
+              border-radius:12px;
+              background:rgba(10,16,28,0.9);
+              border:1px solid #1e2a44;
+              overflow:auto;
+              white-space:pre;
+          ">Schema (no explicit additionalProperties)
+      {
+        "type": "object",
+        "required": ["bookingId"],
+        "properties": {
+          "bookingId": { "type": "string" }
+        }
+      }
+      
+      Payload (contains an extra field)
+      {
+        "bookingId": "ABC123",
+        "unexpectedField": "should-not-be-here"
+      }</pre>
+      
+          <pre style="
+              margin:0;
+              padding:14px;
+              border-radius:12px;
+              background:rgba(10,16,28,0.9);
+              border:1px solid #1e2a44;
+              overflow:auto;
+              white-space:pre;
+          ">Expected behavior
+      - Strict mode OFF: validation will return "pass" = true (schema is used as-is)
+      - Strict mode ON: validation will return "pass" = false (additionalProperties enforced at root)</pre>
+      
+          <p style="margin-top:16px; margin-bottom:8px;">
+            <strong>Acceptance Criteria</strong>
+          </p>
+      
+          <pre style="
+              margin:0;
+              padding:14px;
+              border-radius:12px;
+              background:rgba(10,16,28,0.9);
+              border:1px solid #1e2a44;
+              overflow:auto;
+              white-space:pre;
+          ">Feature: Strict mode handling
+
+            Scenario: Strict mode OFF does not add extra restrictions
+              Given a JSON Schema where additionalProperties is not specified for the relevant object(s)
+              And Strict mode is disabled
+              And the payload contains one or more additional fields
+              When validation is executed
+              Then the validator uses the schema as provided
+              And no validation issue is raised solely due to additional properties
+          
+            Scenario: Strict mode ON rejects additional fields in objects
+              Given a JSON Schema that defines one or more objects
+              And additionalProperties is not specified for at least one of those objects
+              And Strict mode is enabled
+              And the payload contains an additional field inside one of those objects
+              When validation is executed
+              Then the field "pass" is false
+              And at least one issue is returned
+              And at least one issue is related to additionalProperties
+          
+            Scenario: Strict mode does not override explicit schema rules
+              Given a JSON Schema that explicitly defines additionalProperties for specific object(s)
+              And Strict mode is enabled
+              When validation is executed
+              Then the validator enforces the schema's additionalProperties rules as defined
+              And no extra additionalProperties restrictions are implicitly added for those objects
+          </pre>
+      
+        </div>
+      </details>
     </section>
   </main>
 </body>
